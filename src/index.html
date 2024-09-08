@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <script type="module" src="./index.js"></script>
+</head>
+
+<body>
+  <header>
+    <h1>LOGO SPACE</h1>
+  </header>
+  <main>
+    <div class="wrapper">
+      <div class="postit new-note">
+        <a href="#" class="dot open-modal">+</a>
+      </div>
+      <div class="postit">
+        <h4 class="postit-title">Buy stuff</h4>
+        <small class="postit-date">19-07-24</small>
+        <p class="postit-text">I have to buy some milk and going to gym tomorrow</p>
+      </div>
+      <div class="postit">
+        <h4 class="postit-title">Mike bday</h4>
+      </div>
+      <div class="postit">
+        <h4 class="postit-title">Whatever</h4>
+        <small class="postit-date">09-08-24</small>
+        <p class="postit-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur sed nulla veritatis
+          corporis dignissimos pariatur sint magni, odit, perferendis id incidunt amet, fugit perspiciatis aspernatur
+          natus obcaecati provident vel rerum! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci magnam
+          expedita distinctio in! Vero, odio similique unde accusantium veniam quasi distinctio ex id laboriosam
+          nesciunt
+          autem nostrum itaque a dolorem.
+          expedita distinctio in! Vero, odio similique unde accusantium veniam quasi distinctio ex id laboriosam
+          nesciunt
+          expedita distinctio in! Vero, odio similique unde accusantium veniam quasi distinctio ex id laboriosam
+          nesciunt</p>
+      </div>
+
+      <div class="postit"></div>
+      <div class="postit"></div>
+      <div class="postit"></div>
+
+      <div id="modal-window">
+        <div id="popup-container">
+          <h2>New Note</h2>
+          <div class="title-modal"><label for="title-mod">Title: </label><input type="text"
+              placeholder="title of the note" id="title-mod" />
+          </div>
+          <textarea placeholder="What would yo like to save?"></textarea>
+          <div class="popup-btns">
+            <a href="#" class="popup-submit" id="submit">Submit</a>
+            <a href="#" class="popup-cancel" id="cancel">Cancel</a>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </main>
+
+  <div id="fixed-button"><a href="#" class="open-modal">+</a></div>
+
+</body>
+
+</html>
