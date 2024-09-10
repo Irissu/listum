@@ -13,7 +13,8 @@
 
 <body>
   <header>
-    <h1>LOGO SPACE</h1>
+    <!-- <h1>LOGO SPACE</h1> -->
+    <img src="./assets/listum-white.png" alt="">
   </header>
   <main>
     <div class="wrapper">
@@ -22,18 +23,33 @@
       </div>
       <div class="postit">
         <h4 class="postit-title">Buy stuff</h4>
-        <small class="postit-date">19-07-24</small>
         <p class="postit-text">I have to buy some milk and going to gym tomorrow</p>
+        <div class="info-note">
+          <small class="postit-date">01-06-2024</small>
+          <div>
+            <button class="edit-note"><i class="fa-solid fa-pencil"></i></button>
+            <button class="delete-note"><i class="fa-solid fa-trash-can"></i></button>
+          </div>
+        </div>
       </div>
       <div class="postit">
         <h4 class="postit-title">Mike bday</h4>
+        <p class="postit-text">at domino's pizza at 7pm. Bring balloons</p>
+        <div class="info-note">
+          <small class="postit-date">04-07-2024</small>
+          <div>
+            <button class="edit-note"><i class="fa-solid fa-pencil"></i></button>
+            <button class="delete-note"><i class="fa-solid fa-trash-can"></i></button>
+          </div>
+        </div>
       </div>
-      <div class="postit">
+      <div class="postit"> <!-- POST-IT LARGO-->
         <h4 class="postit-title">Whatever</h4>
-        <small class="postit-date">09-08-24</small>
-        <p class="postit-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur sed nulla veritatis
+        <p class="postit-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur sed nulla
+          veritatis
           corporis dignissimos pariatur sint magni, odit, perferendis id incidunt amet, fugit perspiciatis aspernatur
-          natus obcaecati provident vel rerum! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci magnam
+          natus obcaecati provident vel rerum! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci
+          magnam
           expedita distinctio in! Vero, odio similique unde accusantium veniam quasi distinctio ex id laboriosam
           nesciunt
           autem nostrum itaque a dolorem.
@@ -41,21 +57,36 @@
           nesciunt
           expedita distinctio in! Vero, odio similique unde accusantium veniam quasi distinctio ex id laboriosam
           nesciunt</p>
+        <div class="info-note">
+          <small class="postit-date">09-08-2024</small>
+          <div>
+            <button class="edit-note"><i class="fa-solid fa-pencil"></i></button>
+            <button class="delete-note"><i class="fa-solid fa-trash-can"></i></button>
+          </div>
+        </div>
       </div>
 
-      <div class="postit"></div>
-      <div class="postit"></div>
-      <div class="postit"></div>
+      <div class="postit">
+        <h4 class="postit-title">title</h4>
+        <p class="postit-text">contents of the note</p>
+        <div class="info-note">
+          <small class="postit-date">09-09-9999</small>
+          <div>
+            <button class="edit-note"><i class="fa-solid fa-pencil"></i></button>
+            <button class="delete-note"><i class="fa-solid fa-trash-can"></i></button>
+          </div>
+        </div>
+      </div>
 
       <div id="modal-window">
         <div id="popup-container">
           <h2>New Note</h2>
           <div class="title-modal"><label for="title-mod">Title: </label><input type="text"
-              placeholder="title of the note" id="title-mod" />
+              placeholder="title of the note" id="title-mod" required />
           </div>
-          <textarea placeholder="What would yo like to save?"></textarea>
+          <textarea placeholder="What would yo like to save?" id="text-mod" required></textarea>
           <div class="popup-btns">
-            <a href="#" class="popup-submit" id="submit">Submit</a>
+            <a href="#" class="popup-submit" id="submit" type="submit">Submit</a>
             <a href="#" class="popup-cancel" id="cancel">Cancel</a>
           </div>
         </div>
