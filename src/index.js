@@ -24,6 +24,13 @@ window.addEventListener("click", function (event) {
   }
 });
 
+/* wrapper.addEventListener("click", function (event) {
+  const trashBtn = event.target.closest("button");
+  if (trashBtn) {
+    console.log("I'm a trash button and you clicked me!");
+  }
+}); */
+
 wrapper.addEventListener("click", function (event) {
   const closeEdit = event.target.closest("button");
   if (closeEdit && closeEdit.classList.contains("edit-note")) {
@@ -31,16 +38,10 @@ wrapper.addEventListener("click", function (event) {
   }
 });
 
-document.querySelectorAll(".delete-note").forEach(element => element.addEventListener(
-  "click", () => {
-    console.log("hi, I'm a delete button");
-  }
-));
-
 function loadNotes() {
   document.querySelectorAll(".note").forEach(element => element.remove());
   const notes = getNotesLS();
-  notes.forEach((note) => {
+  notes.forEach((note, index) => {
     const newDiv = document.createElement("div");
     newDiv.classList.add("postit", "note");
     newDiv.innerHTML = `
@@ -50,10 +51,18 @@ function loadNotes() {
           <small class="postit-date">${note.date}</small>
           <div>
             <button class="edit-note"><i class="fa-solid fa-pencil"></i></button>
-            <button class="delete-note"><i class="fa-solid fa-trash-can"></i></button>
+            <button class="delete-note" data-index="${index}"><i class="fa-solid fa-trash-can"></i></button>
           </div>
         </div>`;
     addNewNote.insertAdjacentElement("afterend", newDiv);
+  });
+
+  // event for detete notes
+  wrapper.querySelectorAll(".delete-note").forEach(buttonTrash => {
+    buttonTrash.addEventListener("click", function () {
+      const noteIndex = this.getAttribute("data-index");
+      deleteNote(noteIndex);
+    });
   });
 }
 loadNotes();
@@ -80,7 +89,7 @@ submit.addEventListener("click", function (event) {
     loadNotes();
     cancel.click();
   } else {
-    console.log("Debes rellenar los campos de titulo y mensaje.");
+    console.log("All fields must be filled in.");
   }
 });
 
@@ -95,4 +104,12 @@ function getNotesLS() {
 
 function saveNote(note) {
   localStorage.setItem("notesParsed", JSON.stringify(note));
+}
+
+function deleteNote(index) {
+  console.log(`borro nota con el indice ${index}`);
+  const notes = getNotesLS();
+  notes.splice(index, 1);
+  saveNote(notes);
+  loadNotes();
 }
