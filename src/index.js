@@ -3,12 +3,22 @@ const cancel = document.getElementById("cancel");
 const submit = document.getElementById("submit");
 const wrapper = document.querySelector(".wrapper");
 const addNewNote = document.querySelector(".postit.new-note");
+const headerModal = modalWindow.querySelector("h2");
 const titleModal = modalWindow.querySelector("input");
 const textModal = modalWindow.querySelector("textarea");
+const DATA_ACTION = "data-action";
+const DATA_INDEX = "data-index";
 
 document.addEventListener("click", function (event) {
   if (event.target.classList.contains("open-modal")) {
     modalWindow.classList.add("modal");
+    const action = event.target.getAttribute(DATA_ACTION);
+    if (action === "create") {
+      headerModal.textContent = "New Note";
+      titleModal.value = "";
+      textModal.value = "";
+      submit.setAttribute(DATA_ACTION, "create");
+    }
   }
 });
 
@@ -24,20 +34,6 @@ window.addEventListener("click", function (event) {
   }
 });
 
-/* wrapper.addEventListener("click", function (event) {
-  const trashBtn = event.target.closest("button");
-  if (trashBtn) {
-    console.log("I'm a trash button and you clicked me!");
-  }
-}); */
-
-wrapper.addEventListener("click", function (event) {
-  const closeEdit = event.target.closest("button");
-  if (closeEdit && closeEdit.classList.contains("edit-note")) {
-    console.log("I'm editing my note");
-  }
-});
-
 function loadNotes() {
   document.querySelectorAll(".note").forEach(element => element.remove());
   const notes = getNotesLS();
@@ -50,7 +46,7 @@ function loadNotes() {
         <div class="info-note">
           <small class="postit-date">${note.date}</small>
           <div>
-            <button class="edit-note"><i class="fa-solid fa-pencil"></i></button>
+            <button class="edit-note" data-action="edit" edit-index="${index}"><i class="fa-solid fa-pencil"></i></button>
             <button class="delete-note" data-index="${index}"><i class="fa-solid fa-trash-can"></i></button>
           </div>
         </div>`;
@@ -60,41 +56,54 @@ function loadNotes() {
   // event for detete notes
   wrapper.querySelectorAll(".delete-note").forEach(buttonTrash => {
     buttonTrash.addEventListener("click", function () {
-      const noteIndex = this.getAttribute("data-index");
+      const noteIndex = this.getAttribute(DATA_INDEX);
       deleteNote(noteIndex);
+    });
+  });
+
+  // event for updade notes
+  wrapper.querySelectorAll(".edit-note").forEach(buttonEdit => {
+    buttonEdit.addEventListener("click", function () {
+      const editIndex = this.getAttribute("edit-index");
+      editNote(editIndex);
     });
   });
 }
 loadNotes();
 
 submit.addEventListener("click", function (event) {
-  console.log("Hi!, you clicked on the submit button");
   event.preventDefault();
   const noteTitle = titleModal.value;
   const noteText = textModal.value;
   const dateObj = new Date();
   const dateFormated = dateObj.toLocaleDateString();
+  const action = submit.getAttribute(DATA_ACTION);
 
   if (noteTitle && noteText) {
-    console.log(`${noteTitle} ${noteText} ${dateFormated}`);
-    const note = {
-      title: noteTitle,
-      description: noteText,
-      date: dateFormated
-    };
-
     const notes = getNotesLS();
-    notes.push(note);
+    if (action === "create") {
+      const note = {
+        title: noteTitle,
+        description: noteText,
+        date: dateFormated
+      };
+      notes.push(note);
+    } else if (action === "edit") {
+      const noteIndex = submit.getAttribute(DATA_INDEX);
+      notes[noteIndex].title = noteTitle;
+      notes[noteIndex].description = noteText;
+      notes[noteIndex].date = dateFormated;
+    }
+
     saveNote(notes);
     loadNotes();
     cancel.click();
   } else {
-    console.log("All fields must be filled in.");
+    alert("All fields must be filled in.");
   }
 });
 
 getNotesLS().forEach((note) => {
-  console.log("I'm a forEach");
   console.log(note);
 });
 
@@ -107,9 +116,22 @@ function saveNote(note) {
 }
 
 function deleteNote(index) {
-  console.log(`borro nota con el indice ${index}`);
+  const confirmDelete = confirm("Are you sure you want to delete this note?");
+  if (!confirmDelete) return;
+  console.log(`deleting note with index...: ${index}`);
   const notes = getNotesLS();
   notes.splice(index, 1);
   saveNote(notes);
   loadNotes();
+}
+
+function editNote(index) {
+  modalWindow.classList.add("modal");
+  headerModal.textContent = "Edit note";
+  const notes = getNotesLS();
+  const noteToEdit = notes[index];
+  titleModal.value = noteToEdit.title;
+  textModal.value = noteToEdit.description;
+  submit.setAttribute(DATA_ACTION, "edit");
+  submit.setAttribute(DATA_INDEX, index);
 }
